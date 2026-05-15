@@ -5,6 +5,14 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "==> Project dir: $DIR"
 
+# --- system fonts --------------------------------------------------------
+if ! fc-list | grep -qi "NotoSansBengali"; then
+    echo "==> Installing Noto Bengali fonts (required for photo card)..."
+    sudo apt-get install -y fonts-noto-core
+else
+    echo "==> Noto Bengali fonts already installed."
+fi
+
 # --- venv ----------------------------------------------------------------
 if [ ! -f "$DIR/venv/bin/python3" ]; then
     echo "==> Creating virtual environment..."

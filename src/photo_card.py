@@ -7,6 +7,8 @@ Detected template zones (940 × 788 px):
   Headline box: x=0–940, y=513–591 (red placeholder text lives here)
 """
 
+from __future__ import annotations
+
 import io
 import os
 
