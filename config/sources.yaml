@@ -1,0 +1,43 @@
+# News sources configuration
+# Add as many sources as needed. Each source needs:
+#   name        : human-readable label (used in logs and DB)
+#   listing_url : the page that lists recent articles (index / homepage / category page)
+#   selectors   :
+#     article_links : CSS selector that matches <a> tags for each article on the listing page
+#     headline      : CSS selector for the article title on the article page
+#     body          : CSS selector for the article body paragraphs on the article page
+#     image         : CSS selector for the featured image <img> on the article page (optional, set to null to skip)
+#   request_delay : seconds to wait between requests for this source (be polite)
+
+sources:
+  - name: "Kaler Kantho"
+    listing_url: "https://www.kalerkantho.com/print-edition/first-page"
+    # Scope article link scraping to this section heading text.
+    # The scraper finds the <h4> containing this string and only
+    # follows links within that section, ignoring the rest of the page.
+    section_heading: "সর্বাধিক পঠিত"
+    selectors:
+      article_links: "a.stretched-link"
+      headline: "h1.fw-bold"
+      body: "rsc:p.body"
+      image: "meta[property='og:image']"
+    request_delay: 2
+
+  - name: "Samakal Politics"
+    listing_url: "https://samakal.com/politics"
+    selectors:
+      article_links: "div.CatListNews a"
+      headline: "div.dheading h1"
+      body: "div#contentDetails p"
+      image: "div.DNewsImg img"
+    request_delay: 2
+
+  # Add more sources below:
+  # - name: "Prothom Alo"
+  #   listing_url: "https://www.prothomalo.com/bangladesh"
+  #   selectors:
+  #     article_links: "..."
+  #     headline: "..."
+  #     body: "..."
+  #     image: "..."
+  #   request_delay: 2

@@ -1,0 +1,27 @@
+posting:
+  max_posts_per_run: 1          # fixed at 1 — queue drains 1 article per hour
+  max_article_age_hours: 36     # approved articles older than this are expired
+  include_image: true          # set false to post text-only
+  delay_between_posts: 30      # seconds to wait between consecutive FB posts
+
+scraping:
+  request_timeout: 20          # seconds before a request is aborted
+  max_articles_per_source: 20  # max new articles to fetch per source per run
+
+openai:
+  model: "gpt-5-nano"          # used for dedup + filtering
+  max_tokens_filter: null      # null = unconstrained (needed for reasoning models)
+
+  # ── Writing model (rephrasing) ────────────────────────────────────────────
+  # Switch writing_model here to change which model rephrases the news body.
+  # gpt-4o-mini  → set temperature_write: 0.7,  max_tokens_write: 1024
+  # gpt-5-nano   → set temperature_write: null, max_tokens_write: null
+  writing_model: "gpt-4o-mini"
+  max_tokens_write: 1024       # null for reasoning models; int for standard models
+  temperature_write: 0.7       # null for reasoning models; float for standard models
+
+facebook:
+  graph_api_version: "v19.0"
+
+logging:
+  level: "INFO"                # DEBUG | INFO | WARNING | ERROR

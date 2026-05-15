@@ -1,0 +1,117 @@
+# ── Secrets & environment ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+token.json
+service_account.json
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+.installed.cfg
+MANIFEST
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+.virtualenv/
+virtualenv/
+pipenv/
+.pyenv/
+poetry.lock
+Pipfile.lock
+
+# ── Data & databases ─────────────────────────────────────────────────────────
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+
+# ── Testing & coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+nosetests.xml
+pytest.ini
+.testmondata
+
+# ── Type checking & linting ───────────────────────────────────────────────────
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pytype/
+.pyre/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── IDEs & editors ────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+*.sublime-project
+*.sublime-workspace
+
+# ── Claude Code (local config) ────────────────────────────────────────────────
+.claude/
+
+# ── OS artifacts ─────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── HTTP / scraper cache ──────────────────────────────────────────────────────
+.scrapy/
+.requests_cache/
+http_cache/
+*.cache/
+
+# ── Temporary files ───────────────────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak
+*.orig
+.cache/
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+.dockerignore
+docker-compose.override.yml
