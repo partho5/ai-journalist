@@ -32,6 +32,15 @@ sources:
       image: "div.DNewsImg img"
     request_delay: 2
 
+  - name: "Daily Star Bangla"
+    listing_url: "https://bangla.thedailystar.net/"
+    selectors:
+      article_links: "h5.card-title a"
+      headline: "div.block-field-blocknodenewstitle h1"
+      body: "div.block-field-blocknodenewsbody span.text-formatted p"
+      image: "div.block-news-featured-image img"
+    request_delay: 2
+
   # Add more sources below:
   # - name: "Prothom Alo"
   #   listing_url: "https://www.prothomalo.com/bangladesh"

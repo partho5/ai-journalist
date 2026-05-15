@@ -32,7 +32,7 @@ from src.logger import get_logger
 from src.publisher import post_article
 from src.scraper import scrape_source
 from src.token_manager import get_page_token
-from src.writer import write_editorial
+from src.writer import write_editorial, write_headline
 
 load_dotenv()
 
@@ -60,6 +60,7 @@ def _print_dry_run_result(article: dict, editorial: str, index: int, total: int)
         f"  DRY RUN — Article {index}/{total}",
         thin,
         f"  Headline : {article['headline']}",
+        f"  Card HL  : {article.get('card_headline') or '(falls back to raw headline)'}",
         f"  Source   : {article.get('source_name', 'unknown')}",
         f"  URL      : {article['url']}",
     ]
@@ -92,6 +93,15 @@ def _write_and_publish(
     if not editorial:
         db.mark_error(article["url"], "Editorial writing failed")
         return False
+
+    article["card_headline"] = write_headline(
+        article,
+        prompts["headline"],
+        client,
+        ai_cfg.get("writing_model", ai_cfg["model"]),
+        ai_cfg.get("max_tokens_write"),
+        ai_cfg.get("temperature_write"),
+    )
 
     if dry_run:
         _print_dry_run_result(article, editorial, 1, 1)

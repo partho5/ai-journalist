@@ -9,8 +9,10 @@ from typing import Dict, Optional
 import requests
 
 from src.logger import get_logger
+from src.photo_card import PhotoCardGenerator
 
 log = get_logger(__name__)
+_card_gen = PhotoCardGenerator()
 
 
 def _graph_url(version: str, path: str) -> str:
@@ -31,16 +33,22 @@ def _download_image(image_url: str) -> Optional[tuple]:
 
 def _post_with_image(
     image_url: str,
+    headline: str,
     message: str,
     page_id: str,
     page_token: str,
     api_version: str,
 ) -> Optional[str]:
-    """Download image then upload as binary to /photos with caption. Returns post ID or None."""
-    downloaded = _download_image(image_url)
-    if not downloaded:
-        return None
-    img_bytes, content_type = downloaded
+    """Generate photo card, upload as binary to /photos with caption. Returns post ID or None."""
+    try:
+        img_bytes = _card_gen.generate_bytes(image_url, headline)
+        content_type = "image/png"
+    except Exception as exc:
+        log.warning("Photo card generation failed (%s) — falling back to raw image", exc)
+        downloaded = _download_image(image_url)
+        if not downloaded:
+            return None
+        img_bytes, content_type = downloaded
 
     try:
         resp = requests.post(
@@ -75,7 +83,8 @@ def post_article(
     image_url = article.get("image_url") if include_image else None
 
     if image_url:
-        post_id = _post_with_image(image_url, editorial_text, page_id, page_token, api_version)
+        card_headline = article.get("card_headline") or article.get("headline", "")
+        post_id = _post_with_image(image_url, card_headline, editorial_text, page_id, page_token, api_version)
         if post_id:
             log.info(
                 "Published to Facebook (with image): post_id=%s | headline=%s",

@@ -45,6 +45,8 @@ data/
 *.sqlite3
 *.db-shm
 *.db-wal
+assets/*
+!assets/photo_card_template.png
 
 # ── Logs ─────────────────────────────────────────────────────────────────────
 logs/
