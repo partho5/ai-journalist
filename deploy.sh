@@ -55,10 +55,10 @@ fi
 chmod +x "$DIR/run.sh"
 
 # --- cron (idempotent) ---------------------------------------------------
-CRON_JOB="0 0,8-23 * * * $DIR/run.sh"
+CRON_JOB="32 0,8-23 * * * $DIR/run.sh"
 PREV_CRON=$(crontab -l 2>/dev/null | grep -F "$DIR/run.sh" || true)
 
-(crontab -l 2>/dev/null | grep -vF "$DIR/run.sh"; echo "$CRON_JOB") | crontab -
+{ crontab -l 2>/dev/null | grep -vF "$DIR/run.sh" || true; echo "$CRON_JOB"; } | crontab -
 
 if [ -z "$PREV_CRON" ]; then
     ACTIONS+=("Cron job: newly registered  →  $CRON_JOB")
